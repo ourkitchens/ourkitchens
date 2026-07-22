@@ -45,7 +45,7 @@
   <div class="container">
     <span class="eyebrow" style="justify-content:center;">Our Menu</span>
     <h1>What's Cooking Today</h1>
-    <p>Every dish below is a placeholder — swap in your real menu, prices, and photos whenever you're ready.</p>
+    <p>Fresh, homemade dishes prepared daily by Chef Sleiman and our kitchen team.</p>
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Menu</span></div>
   </div>
 </section>
@@ -54,42 +54,23 @@
 <section class="section">
   <div class="container">
     <div class="menu-tabs" id="menuTabs">
-      <button class="menu-tab is-active" data-target="daily">Daily Meals</button>
+      <button class="menu-tab is-active" data-target="daily">Diet Platters</button>
       <button class="menu-tab" data-target="sandwiches">Sandwiches</button>
       <button class="menu-tab" data-target="salads">Salads</button>
-      <button class="menu-tab" data-target="mains">Main Dishes</button>
-      <button class="menu-tab" data-target="desserts">Desserts</button>
       <button class="menu-tab" data-target="drinks">Drinks</button>
     </div>
 
-    <!-- Daily Meals -->
+    <!-- Daily Meals / Diet Platters -->
     <div class="menu-category is-active" id="daily">
-      <div class="menu-category-head"><h2>Daily Meals</h2><div class="rule"></div></div>
+      <div class="menu-category-head"><h2>Diet Platters</h2><div class="rule"></div></div>
       <div class="menu-grid">
-        <div class="meal-card">
-          <div class="thumb"><span class="meal-tag">Today</span><img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=700&q=80" alt="Slow-braised lamb with herb rice"></div>
-          <div class="meal-body"><div class="row"><h3>Slow-Braised Lamb</h3><span class="meal-price">$18.50</span></div><p>Fall-off-the-bone lamb shank, herb rice, roasted root vegetables.</p></div>
+        <div class="meal-card is-orderable" data-id="chicken-breast" data-price="600000" data-addons='[{"name":"Fruit","price":50000},{"name":"Soft Drink","price":100000}]'>
+          <div class="thumb"><span class="meal-tag">Popular</span><img src="assets/menu/diet platter chicken breast.png" alt="Chicken breast with seasonal salad"></div>
+          <div class="meal-body"><div class="row"><h3>Chicken Breast</h3><span class="meal-price">600,000 L.L.</span></div><p>Grilled chicken breast with seasonal salad.</p><p class="addon-hint">Add-ons available</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=80" alt="Roasted vegetable and grain bowl"></div>
-          <div class="meal-body"><div class="row"><h3>Garden Grain Bowl</h3><span class="meal-price">$13.00</span></div><p><span class="diet-tag">Veg</span>Roasted vegetables, freekeh, tahini drizzle, toasted seeds.</p></div>
-        </div>
-        <div class="meal-card">
-          <div class="thumb"><span class="meal-tag">Family</span><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=80" alt="Baked chicken and potatoes tray"></div>
-          <div class="meal-body"><div class="row"><h3>Roast Chicken Tray</h3><span class="meal-price">$46.00</span></div><p>Whole roasted chicken, garlic potatoes, pan jus — serves 4-5.</p></div>
-        </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=700&q=80" alt="Stuffed grape leaves plate"></div>
-          <div class="meal-body"><div class="row"><h3>Stuffed Grape Leaves</h3><span class="meal-price">$11.50</span></div><p><span class="diet-tag">Veg</span>Rice, herbs and lemon, rolled and simmered slow.</p></div>
-        </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80" alt="Beef stew with rice">
-          </div>
-          <div class="meal-body"><div class="row"><h3>Beef &amp; Okra Stew</h3><span class="meal-price">$15.00</span></div><p>Tender beef simmered in tomato sauce, served over rice.</p></div>
-        </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=700&q=80" alt="Grilled fish plate"></div>
-          <div class="meal-body"><div class="row"><h3>Herb-Grilled Fish</h3><span class="meal-price">$17.00</span></div><p>Catch of the day, charred lemon, and parsley oil.</p></div>
+        <div class="meal-card is-orderable" data-id="fish-filet" data-price="600000" data-addons='[{"name":"Fruit","price":50000},{"name":"Soft Drink","price":100000}]'>
+          <div class="thumb"><img src="assets/menu/diet platter fish fillet.png" alt="Fish filet with seasonal salad"></div>
+          <div class="meal-body"><div class="row"><h3>Fish Filet</h3><span class="meal-price">600,000 L.L.</span></div><p>Fresh fish filet with seasonal salad.</p><p class="addon-hint">Add-ons available</p></div>
         </div>
       </div>
     </div>
@@ -98,21 +79,25 @@
     <div class="menu-category" id="sandwiches">
       <div class="menu-category-head"><h2>Sandwiches</h2><div class="rule"></div></div>
       <div class="menu-grid">
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=700&q=80" alt="Grilled chicken sandwich"></div>
-          <div class="meal-body"><div class="row"><h3>Grilled Chicken Wrap</h3><span class="meal-price">$9.50</span></div><p>Marinated chicken, garlic sauce, pickles, in a warm wrap.</p></div>
+        <div class="meal-card is-orderable" data-id="tuna-sandwich" data-price="450000">
+          <div class="thumb"><img src="assets/menu/tuna sandwich.png" alt="Tuna sandwich"></div>
+          <div class="meal-body"><div class="row"><h3>Tuna Sandwich</h3><span class="meal-price">450,000 L.L.</span></div><p>Tuna, corn, pickles, lettuce, mayo.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1567234669003-dce7a7a88821?auto=format&fit=crop&w=700&q=80" alt="Beef shawarma sandwich"></div>
-          <div class="meal-body"><div class="row"><h3>Beef Shawarma</h3><span class="meal-price">$10.00</span></div><p>Spiced shaved beef, tahini, pickled turnip, tomato.</p></div>
+        <div class="meal-card is-orderable" data-id="crab-sandwich" data-price="450000">
+          <div class="thumb"><img src="assets/menu/crab sandwich.png" alt="Crab sandwich"></div>
+          <div class="meal-body"><div class="row"><h3>Crab Sandwich</h3><span class="meal-price">450,000 L.L.</span></div><p>Crab, iceberg lettuce, pickles, cocktail sauce.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1481070555726-e2fe8357725c?auto=format&fit=crop&w=700&q=80" alt="Falafel sandwich"></div>
-          <div class="meal-body"><div class="row"><h3>Crispy Falafel</h3><span class="meal-price">$8.00</span></div><p><span class="diet-tag">Veg</span>House falafel, tahini, herb salad, warm pita.</p></div>
+        <div class="meal-card is-orderable" data-id="cheese-sandwich" data-price="350000">
+          <div class="thumb"><img src="assets/menu/cheese sandwich.png" alt="Cheese sandwich"></div>
+          <div class="meal-body"><div class="row"><h3>Cheese Sandwich</h3><span class="meal-price">350,000 L.L.</span></div><p><span class="diet-tag">Veg</span>Cheese, iceberg lettuce, pickles, cocktail sauce.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=700&q=80" alt="Halloumi sandwich"></div>
-          <div class="meal-body"><div class="row"><h3>Grilled Halloumi</h3><span class="meal-price">$9.00</span></div><p><span class="diet-tag">Veg</span>Charred halloumi, fig jam, arugula, toasted bun.</p></div>
+        <div class="meal-card is-orderable" data-id="turkey-cheese-sandwich" data-price="450000">
+          <div class="thumb"><img src="assets/menu/turkey&cheese sandwich.png" alt="Turkey & cheese sandwich"></div>
+          <div class="meal-body"><div class="row"><h3>Turkey &amp; Cheese</h3><span class="meal-price">450,000 L.L.</span></div><p>Turkey, cheese, iceberg lettuce, pickles, cocktail sauce.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="kitchen-bride-sandwich" data-price="650000">
+          <div class="thumb"><img src="assets/menu/Our kitchen's bride.png" alt="Our Kitchen's Bride sandwich"></div>
+          <div class="meal-body"><div class="row"><h3>Our Kitchen's Bride</h3><span class="meal-price">650,000 L.L.</span></div><p>Grilled crispy chicken with special sauce, lettuce, pickles, mozzarella cheese.</p></div>
         </div>
       </div>
     </div>
@@ -121,75 +106,62 @@
     <div class="menu-category" id="salads">
       <div class="menu-category-head"><h2>Salads</h2><div class="rule"></div></div>
       <div class="menu-grid">
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=80" alt="Tabbouleh salad"></div>
-          <div class="meal-body"><div class="row"><h3>Classic Tabbouleh</h3><span class="meal-price">$8.50</span></div><p><span class="diet-tag">Veg</span>Fine bulgur, parsley, tomato, lemon, olive oil.</p></div>
+        <div class="meal-card is-orderable" data-id="crab-salad" data-price="550000">
+          <div class="thumb"><img src="assets/menu/crab salad.jpg" alt="Crab salad"></div>
+          <div class="meal-body"><div class="row"><h3>Crab Salad</h3><span class="meal-price">550,000 L.L.</span></div><p>Crab sticks, iceberg, carrots, cucumber, cherry tomato, seasonal fruits. Choice of mayo mustard or lemon mayo dressing.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=80" alt="Fattoush salad"></div>
-          <div class="meal-body"><div class="row"><h3>Fattoush</h3><span class="meal-price">$9.00</span></div><p><span class="diet-tag">Veg</span>Crisp greens, radish, toasted pita, sumac dressing.</p></div>
+        <div class="meal-card is-orderable" data-id="caesar-salad" data-price="600000">
+          <div class="thumb"><img src="assets/menu/ceasar salad.jpg" alt="Caesar salad"></div>
+          <div class="meal-body"><div class="row"><h3>Caesar Salad</h3><span class="meal-price">600,000 L.L.</span></div><p>Chicken tenders, iceberg, croutons, parmesan, cherry tomato sauce with lemon mayo, oregano, salt, and garlic.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=700&q=80" alt="Greek style salad"></div>
-          <div class="meal-body"><div class="row"><h3>Mediterranean Bowl</h3><span class="meal-price">$10.50</span></div><p><span class="diet-tag">Veg</span>Chickpeas, feta, cucumber, olives, herb vinaigrette.</p></div>
+        <div class="meal-card is-orderable" data-id="greek-salad" data-price="500000">
+          <div class="thumb"><img src="assets/menu/greek salad.jpg" alt="Greek salad"></div>
+          <div class="meal-body"><div class="row"><h3>Greek Salad</h3><span class="meal-price">500,000 L.L.</span></div><p><span class="diet-tag">Veg</span>Iceberg, double cream, feta, mint, cherry tomato, olives, cucumber.</p></div>
         </div>
-      </div>
-    </div>
-
-    <!-- Main Dishes -->
-    <div class="menu-category" id="mains">
-      <div class="menu-category-head"><h2>Main Dishes</h2><div class="rule"></div></div>
-      <div class="menu-grid">
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80" alt="Mixed grill platter"></div>
-          <div class="meal-body"><div class="row"><h3>Mixed Grill Platter</h3><span class="meal-price">$24.00</span></div><p>Skewered chicken, beef and kafta, grilled vegetables, rice.</p></div>
+        <div class="meal-card is-orderable" data-id="pasta-salad" data-price="500000">
+          <div class="thumb"><img src="assets/menu/pasta salad.jpg" alt="Pasta salad"></div>
+          <div class="meal-body"><div class="row"><h3>Pasta Salad</h3><span class="meal-price">500,000 L.L.</span></div><p><span class="diet-tag">Veg</span>Pasta, iceberg, cherry tomato, olives, cucumber. Choice of mayo mustard or lemon mayo dressing.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=700&q=80" alt="Slow roasted short ribs">
-          </div>
-          <div class="meal-body"><div class="row"><h3>Slow-Roasted Short Ribs</h3><span class="meal-price">$27.00</span></div><p>Red wine jus, root vegetable mash, crispy shallots.</p></div>
+        <div class="meal-card is-orderable" data-id="tabbouleh" data-price="350000">
+          <div class="thumb"><img src="assets/menu/tabouleh.jpg" alt="Tabbouleh salad"></div>
+          <div class="meal-body"><div class="row"><h3>Tabbouleh</h3><span class="meal-price">350,000 L.L.</span></div><p><span class="diet-tag">Veg</span>Parsley, tomato, onions, bulgur. Sauce with lemon juice, pomegranate molasses, oil, and dried mint.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?auto=format&fit=crop&w=700&q=80" alt="Baked pasta dish"></div>
-          <div class="meal-body"><div class="row"><h3>Baked Kafta Pasta</h3><span class="meal-price">$16.50</span></div><p>House-made pasta layered with seasoned beef and tomato sauce.</p></div>
+        <div class="meal-card is-orderable" data-id="tuna-salad" data-price="500000">
+          <div class="thumb"><img src="assets/menu/tuna salad.jpg" alt="Tuna salad"></div>
+          <div class="meal-body"><div class="row"><h3>Tuna Salad</h3><span class="meal-price">500,000 L.L.</span></div><p>Tuna, pasta, iceberg, cherry tomato, olives, cucumber.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- Desserts -->
-    <div class="menu-category" id="desserts">
-      <div class="menu-category-head"><h2>Desserts</h2><div class="rule"></div></div>
-      <div class="menu-grid">
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=700&q=80" alt="Baklava dessert"></div>
-          <div class="meal-body"><div class="row"><h3>Pistachio Baklava</h3><span class="meal-price">$4.50</span></div><p>Layered filo, honey syrup, crushed pistachio.</p></div>
-        </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80" alt="Chocolate cake slice"></div>
-          <div class="meal-body"><div class="row"><h3>Dark Chocolate Cake</h3><span class="meal-price">$6.00</span></div><p>Rich cocoa sponge, warm ganache, sea salt.</p></div>
-        </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=80" alt="Rice pudding dessert"></div>
-          <div class="meal-body"><div class="row"><h3>Rose Rice Pudding</h3><span class="meal-price">$5.00</span></div><p>Creamy rice pudding, rosewater, toasted almonds.</p></div>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Drinks -->
     <div class="menu-category" id="drinks">
       <div class="menu-category-head"><h2>Drinks</h2><div class="rule"></div></div>
       <div class="menu-grid">
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=700&q=80" alt="Fresh mint lemonade"></div>
-          <div class="meal-body"><div class="row"><h3>Mint Lemonade</h3><span class="meal-price">$4.00</span></div><p>Fresh mint, lemon, and a touch of rose water.</p></div>
+        <div class="meal-card is-orderable" data-id="small-water" data-price="40000">
+          <div class="thumb"><img src="assets/menu/small water.jpg" alt="Small water bottle"></div>
+          <div class="meal-body"><div class="row"><h3>Small Water</h3><span class="meal-price">40,000 L.L.</span></div><p>Refreshing bottled water.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80" alt="Iced coffee glass"></div>
-          <div class="meal-body"><div class="row"><h3>Iced Cardamom Coffee</h3><span class="meal-price">$4.50</span></div><p>Slow-brewed coffee, cardamom, served over ice.</p></div>
+        <div class="meal-card is-orderable" data-id="7up" data-price="100000">
+          <div class="thumb"><img src="assets/menu/7up.jpg" alt="7UP bottle"></div>
+          <div class="meal-body"><div class="row"><h3>7UP</h3><span class="meal-price">100,000 L.L.</span></div><p>Crisp lemon-lime flavored soft drink.</p></div>
         </div>
-        <div class="meal-card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80" alt="Herbal tea cup"></div>
-          <div class="meal-body"><div class="row"><h3>Herbal Tea</h3><span class="meal-price">$3.50</span></div><p>Sage, thyme, and cinnamon, steeped fresh to order.</p></div>
+        <div class="meal-card is-orderable" data-id="7up-diet" data-price="100000">
+          <div class="thumb"><img src="assets/menu/7up diet.jpg" alt="7UP Diet bottle"></div>
+          <div class="meal-body"><div class="row"><h3>7UP Diet</h3><span class="meal-price">100,000 L.L.</span></div><p>Zero sugar lemon-lime soft drink.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="pepsi" data-price="100000">
+          <div class="thumb"><img src="assets/menu/pepsi.jpg" alt="Pepsi bottle"></div>
+          <div class="meal-body"><div class="row"><h3>Pepsi</h3><span class="meal-price">100,000 L.L.</span></div><p>Classic cola soft drink.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="pepsi-diet" data-price="100000">
+          <div class="thumb"><img src="assets/menu/pepsi diet.jpg" alt="Pepsi Diet bottle"></div>
+          <div class="meal-body"><div class="row"><h3>Pepsi Diet</h3><span class="meal-price">100,000 L.L.</span></div><p>Zero sugar cola soft drink.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="mirinda" data-price="100000">
+          <div class="thumb"><img src="assets/menu/mirinda.jpg" alt="Mirinda bottle"></div>
+          <div class="meal-body"><div class="row"><h3>Mirinda</h3><span class="meal-price">100,000 L.L.</span></div><p>Fruity flavored soft drink.</p></div>
         </div>
       </div>
     </div>
@@ -259,6 +231,141 @@
     </div>
   </div>
 </footer>
+
+<!-- ============================= CART FLOATING BUTTON ============================= -->
+<button class="cart-fab" id="cartFab" aria-label="Open your order" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.4"/><circle cx="19" cy="21" r="1.4"/><path d="M2.5 3h2.4l2.4 12.6a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6l1.5-8H6"/></svg>
+  <span class="cart-fab-count" id="cartFabCount">0</span>
+</button>
+
+<!-- ============================= ITEM MODAL ============================= -->
+<div class="modal-overlay" id="itemModalOverlay">
+  <div class="modal item-modal" role="dialog" aria-modal="true" aria-labelledby="itemModalTitle">
+    <button class="modal-close" id="itemModalClose" aria-label="Close">&times;</button>
+    <div class="item-modal-head">
+      <h3 id="itemModalTitle">Item Name</h3>
+      <span class="item-modal-unit-price" id="itemModalUnitPrice">0 L.L.</span>
+    </div>
+
+    <div class="modal-field">
+      <label>Quantity</label>
+      <div class="qty-stepper">
+        <button type="button" class="qty-btn" id="itemQtyMinus" aria-label="Decrease quantity">&minus;</button>
+        <span class="qty-value" id="itemQtyValue">1</span>
+        <button type="button" class="qty-btn" id="itemQtyPlus" aria-label="Increase quantity">+</button>
+      </div>
+    </div>
+
+    <div class="modal-field" id="itemAddonsField" hidden>
+      <label>Optional Add-ons</label>
+      <div class="addon-list" id="itemAddonsList"></div>
+    </div>
+
+    <div class="modal-field">
+      <label for="itemNoteInput">Special Notes (optional)</label>
+      <textarea id="itemNoteInput" placeholder="e.g. no onions, extra spicy..."></textarea>
+    </div>
+
+    <div class="item-modal-total">
+      <span>Item total</span>
+      <strong id="itemModalTotal">0 L.L.</strong>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-outline" id="itemModalCancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="itemModalAdd">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= ORDER / CART MODAL ============================= -->
+<div class="modal-overlay" id="cartModalOverlay">
+  <div class="modal cart-modal" role="dialog" aria-modal="true" aria-labelledby="cartModalTitle">
+    <button class="modal-close" id="cartModalClose" aria-label="Close">&times;</button>
+    <h3 id="cartModalTitle">Your Order</h3>
+
+    <div class="cart-customer">
+      <div class="cart-form-row">
+        <div class="modal-field">
+          <label for="custName">Full Name <span class="req">*</span></label>
+          <input type="text" id="custName" placeholder="Your full name">
+        </div>
+        <div class="modal-field">
+          <label for="custPhone">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="custPhone" placeholder="e.g. 03 123 456">
+        </div>
+      </div>
+      <div class="modal-field">
+        <label for="custLocation">Location <span class="req">*</span></label>
+        <input type="text" id="custLocation" placeholder="Building, street, area...">
+      </div>
+      <div class="cart-form-row">
+        <div class="modal-field">
+          <label for="custDate">Day <span class="req">*</span></label>
+          <input type="date" id="custDate">
+        </div>
+        <div class="modal-field">
+          <label for="custTime">Hour <span class="req">*</span></label>
+          <input type="time" id="custTime">
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-items" id="cartItemsList">
+      <!-- populated by JS -->
+    </div>
+
+    <div class="cart-empty" id="cartEmptyState">
+      <p>Your cart is empty. Browse the menu and tap a dish to add it.</p>
+    </div>
+
+    <div class="cart-list-actions" id="cartListActions">
+      <button type="button" class="cart-clear-btn" id="cartClearAll">Delete entire order</button>
+    </div>
+
+    <div class="cart-total-row">
+      <span>Estimated Total</span>
+      <strong id="cartTotalAmount">0 L.L.</strong>
+    </div>
+
+    <p class="cart-note" id="cartValidationNote"></p>
+
+    <button type="button" class="btn cart-whatsapp-btn" id="cartWhatsappBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      Order via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- Reusable template for a single cart line item -->
+<template id="cartItemTemplate">
+  <div class="cart-item">
+    <div class="cart-item-summary">
+      <img class="cart-item-image" src="" alt="Item image">
+      <div class="cart-item-info">
+        <h4 class="cart-item-name"></h4>
+        <div class="cart-item-meta">
+          <div class="qty-stepper qty-stepper-sm">
+            <button type="button" class="qty-btn cart-qty-minus" aria-label="Decrease quantity">&minus;</button>
+            <span class="qty-value cart-qty-value">1</span>
+            <button type="button" class="qty-btn cart-qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="cart-item-price"></span>
+        </div>
+      </div>
+      <button type="button" class="cart-item-toggle" aria-label="Toggle item details">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <button type="button" class="cart-item-delete" aria-label="Remove item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h10l1-13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="cart-item-details" hidden>
+      <div class="cart-item-addons" hidden></div>
+      <textarea class="cart-item-note" placeholder="Special notes (optional)"></textarea>
+    </div>
+  </div>
+</template>
 
 <script src="script.js"></script>
 </body>
