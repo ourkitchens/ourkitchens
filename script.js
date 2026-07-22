@@ -590,3 +590,144 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
 });
+
+/* =========================================================
+   CATERING PAGE — WhatsApp CTA logic
+   ========================================================= */
+(function () {
+  var WHATSAPP_NUMBER = '96181275199';
+
+  function buildCateringMessage() {
+    var name     = (document.getElementById('ctaName')     || {}).value || '';
+    var guests   = (document.getElementById('ctaGuests')   || {}).value || '';
+    var event    = (document.getElementById('ctaEvent')    || {}).value || '';
+    var date     = (document.getElementById('ctaDate')     || {}).value || '';
+    var location = (document.getElementById('ctaLocation') || {}).value || '';
+    var note     = (document.getElementById('ctaNote')     || {}).value || '';
+
+    var addons = [];
+    document.querySelectorAll('.cta-addon-check input:checked').forEach(function (cb) {
+      addons.push(cb.value);
+    });
+
+    var lines = [];
+    lines.push('\u{1F44B} Hello! I\'d like to inquire about catering services from Our Kitchen by Chef Sleiman.');
+    lines.push('');
+    if (name)     lines.push('*Name:* ' + name.trim());
+    if (event)    lines.push('*Event Type:* ' + event);
+    if (guests)   lines.push('*Number of Guests:* ' + guests);
+    if (date) {
+      var parts = date.split('-');
+      var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+      lines.push('*Event Date:* ' + d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }));
+    }
+    if (location) lines.push('*Location:* ' + location.trim());
+    if (addons.length) lines.push('*Add-ons Requested:* ' + addons.join(', '));
+    if (note)     lines.push('*Additional Notes:* ' + note.trim());
+    lines.push('');
+    lines.push('Could you please provide more details and a custom quote? Thank you! \u{1F64F}');
+
+    return lines.join('\n');
+  }
+
+  function openWhatsApp(message) {
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
+  }
+
+  // Generic "Chat with Us" button — sends a simple inquiry
+  var genericBtn = document.getElementById('cateringWhatsappBtn');
+  if (genericBtn) {
+    genericBtn.addEventListener('click', function () {
+      openWhatsApp('\u{1F44B} Hello! I\'d like to inquire about your catering services. Could you share more details about availability, menus, and pricing? Thank you!');
+    });
+  }
+
+  // Required fields (everything except add-ons and cuisine preferences/notes)
+  var REQUIRED_FIELDS = [
+    { id: 'ctaName',     label: 'Your Name' },
+    { id: 'ctaGuests',   label: 'Number of Guests' },
+    { id: 'ctaEvent',    label: 'Event Type' },
+    { id: 'ctaDate',     label: 'Event Date' },
+    { id: 'ctaLocation', label: 'Event Location / Area' }
+  ];
+
+  function clearFieldError(field) {
+    field.style.borderColor = '';
+  }
+
+  function showFormError() {
+    var errorEl = document.getElementById('ctaFormError');
+    if (errorEl) errorEl.classList.add('is-visible');
+  }
+
+  function hideFormError() {
+    var errorEl = document.getElementById('ctaFormError');
+    if (errorEl) errorEl.classList.remove('is-visible');
+  }
+
+  function validateCateringForm() {
+    var firstInvalid = null;
+    var missing = [];
+
+    REQUIRED_FIELDS.forEach(function (f) {
+      var field = document.getElementById(f.id);
+      if (!field) return;
+      clearFieldError(field);
+      if (!field.value || !field.value.trim()) {
+        missing.push(f.label);
+        field.style.borderColor = '#c0392b';
+        if (!firstInvalid) firstInvalid = field;
+      }
+    });
+
+    if (missing.length) {
+      if (firstInvalid) firstInvalid.focus();
+      showFormError();
+      return false;
+    }
+    hideFormError();
+    return true;
+  }
+
+  function resetCateringForm() {
+    REQUIRED_FIELDS.forEach(function (f) {
+      var field = document.getElementById(f.id);
+      if (field) {
+        field.value = '';
+        clearFieldError(field);
+      }
+    });
+    var note = document.getElementById('ctaNote');
+    if (note) note.value = '';
+    document.querySelectorAll('.cta-addon-check input:checked').forEach(function (cb) {
+      cb.checked = false;
+    });
+    hideFormError();
+  }
+
+  // Clear the red error outline (and hide the banner once all fields are valid)
+  REQUIRED_FIELDS.forEach(function (f) {
+    var field = document.getElementById(f.id);
+    if (field) {
+      field.addEventListener('input', function () {
+        clearFieldError(field);
+        var stillMissing = REQUIRED_FIELDS.some(function (rf) {
+          var el = document.getElementById(rf.id);
+          return el && (!el.value || !el.value.trim());
+        });
+        if (!stillMissing) hideFormError();
+      });
+      field.addEventListener('change', function () { clearFieldError(field); });
+    }
+  });
+
+  // Form "Send My Details" button — sends the rich auto-generated message
+  var formBtn = document.getElementById('ctaFormWhatsappBtn');
+  if (formBtn) {
+    formBtn.addEventListener('click', function () {
+      if (!validateCateringForm()) return;
+      openWhatsApp(buildCateringMessage());
+      resetCateringForm();
+    });
+  }
+})();
