@@ -200,7 +200,7 @@
       <span class="eyebrow">Ready to Book?</span>
       <h2>Let's Plan Your Menu Together</h2>
       <p>Chat with our hostess directly on WhatsApp to discuss your event, guests, menu preferences, and any add-ons. We'll put together a custom quote just for you.</p>
-      <button class="btn catering-whatsapp-btn" id="cateringWhatsappBtn">
+      <button class="btn catering-whatsapp-btn" id="cateringWhatsappBtn" style="display:flex; margin:32px auto 0;"
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         Chat with Us on WhatsApp
       </button>
@@ -629,11 +629,73 @@
     });
   }
 
+  // Required fields (everything except add-ons and cuisine preferences/notes)
+  var REQUIRED_FIELDS = [
+    { id: 'ctaName',     label: 'Your Name' },
+    { id: 'ctaGuests',   label: 'Number of Guests' },
+    { id: 'ctaEvent',    label: 'Event Type' },
+    { id: 'ctaDate',     label: 'Event Date' },
+    { id: 'ctaLocation', label: 'Event Location / Area' }
+  ];
+
+  function clearFieldError(field) {
+    field.style.borderColor = '';
+  }
+
+  function validateCateringForm() {
+    var firstInvalid = null;
+    var missing = [];
+
+    REQUIRED_FIELDS.forEach(function (f) {
+      var field = document.getElementById(f.id);
+      if (!field) return;
+      clearFieldError(field);
+      if (!field.value || !field.value.trim()) {
+        missing.push(f.label);
+        field.style.borderColor = '#c0392b';
+        if (!firstInvalid) firstInvalid = field;
+      }
+    });
+
+    if (missing.length) {
+      if (firstInvalid) firstInvalid.focus();
+      alert('Please fill in the following before sending:\n\n- ' + missing.join('\n- '));
+      return false;
+    }
+    return true;
+  }
+
+  function resetCateringForm() {
+    REQUIRED_FIELDS.forEach(function (f) {
+      var field = document.getElementById(f.id);
+      if (field) {
+        field.value = '';
+        clearFieldError(field);
+      }
+    });
+    var note = document.getElementById('ctaNote');
+    if (note) note.value = '';
+    document.querySelectorAll('.cta-addon-check input:checked').forEach(function (cb) {
+      cb.checked = false;
+    });
+  }
+
+  // Clear the red error outline as soon as the user starts fixing a field
+  REQUIRED_FIELDS.forEach(function (f) {
+    var field = document.getElementById(f.id);
+    if (field) {
+      field.addEventListener('input', function () { clearFieldError(field); });
+      field.addEventListener('change', function () { clearFieldError(field); });
+    }
+  });
+
   // Form "Send My Details" button — sends the rich auto-generated message
   var formBtn = document.getElementById('ctaFormWhatsappBtn');
   if (formBtn) {
     formBtn.addEventListener('click', function () {
+      if (!validateCateringForm()) return;
       openWhatsApp(buildCateringMessage());
+      resetCateringForm();
     });
   }
 })();
