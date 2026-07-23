@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   })();
 
-  /* ---------- Home page: "Today's Special" badge list from Google Sheet CSV ---------- */
+  /* ---------- Home page: "Today's Special" badge list + Daily Meals grid from Google Sheet CSV ---------- */
   (function () {
     var DAILY_MEAL_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrLVjEq8sNPChC5MA1z_p8qjthZs8Ruk7DF33g3EEOkQ1N3MzAZIl-7uEnHRcGwaEvpmVahUnsEClw/pub?output=csv';
 
@@ -157,7 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     var listEl = document.getElementById('todaysSpecialList');
-    if (!listEl) return; // Not on the home page
+    var homeGrid = document.getElementById('homeDailyMealGrid');
+    if (!listEl && !homeGrid) return; // Not on the home page
 
     fetch(DAILY_MEAL_CSV_URL, { cache: 'no-store' })
       .then(function (response) {
@@ -170,26 +171,55 @@ document.addEventListener('DOMContentLoaded', function () {
           .map(function (line) { return line.replace(/"/g, '').trim(); })
           .filter(function (line) { return line.length > 0; });
 
-        var names = featuredIds
-          .map(function (id) { return DAILY_MEAL_NAMES[id]; })
-          .filter(Boolean);
+        // --- Update the "Today's Special" badge list ---
+        if (listEl) {
+          var names = featuredIds
+            .map(function (id) { return DAILY_MEAL_NAMES[id]; })
+            .filter(Boolean);
 
-        listEl.innerHTML = '';
-        if (!names.length) {
-          var emptyLi = document.createElement('li');
-          emptyLi.textContent = 'Check back soon!';
-          listEl.appendChild(emptyLi);
-          return;
+          listEl.innerHTML = '';
+          if (!names.length) {
+            var emptyLi = document.createElement('li');
+            emptyLi.textContent = 'Check back soon!';
+            listEl.appendChild(emptyLi);
+          } else {
+            names.forEach(function (name) {
+              var li = document.createElement('li');
+              li.textContent = name;
+              listEl.appendChild(li);
+            });
+          }
         }
 
-        names.forEach(function (name) {
-          var li = document.createElement('li');
-          li.textContent = name;
-          listEl.appendChild(li);
-        });
+        // --- Update the "Today's Daily Meals" card grid ---
+        if (homeGrid) {
+          var allCards = homeGrid.querySelectorAll('.meal-card[data-daily-id]');
+          var anyFeatured = false;
+          allCards.forEach(function (card) {
+            var isFeatured = featuredIds.indexOf(card.getAttribute('data-daily-id')) !== -1;
+            card.classList.toggle('is-hidden', !isFeatured);
+            if (isFeatured) anyFeatured = true;
+          });
+
+          if (!anyFeatured) {
+            var emptyMsg = document.createElement('p');
+            emptyMsg.className = 'daily-meal-empty';
+            emptyMsg.textContent = 'No daily meal is featured right now — check back soon!';
+            homeGrid.insertAdjacentElement('afterend', emptyMsg);
+          }
+        }
       })
       .catch(function (err) {
         console.warn("Today's Special: could not load featured meals.", err);
+        // Fail open on the grid: if the sheet can't be reached, show all cards rather than none.
+        if (homeGrid) {
+          homeGrid.querySelectorAll('.meal-card[data-daily-id]').forEach(function (card) {
+            card.classList.remove('is-hidden');
+          });
+        }
+      })
+      .finally(function () {
+        if (homeGrid) homeGrid.classList.remove('is-loading');
       });
   })();
 
