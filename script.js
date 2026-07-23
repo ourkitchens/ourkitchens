@@ -94,6 +94,105 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { passive: true });
   }
 
+  /* ---------- Daily Meal: highlight today's featured meal from Google Sheet CSV ---------- */
+  (function () {
+    var DAILY_MEAL_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrLVjEq8sNPChC5MA1z_p8qjthZs8Ruk7DF33g3EEOkQ1N3MzAZIl-7uEnHRcGwaEvpmVahUnsEClw/pub?output=csv';
+
+    var dailyMealSection = document.getElementById('daily-meal');
+    if (!dailyMealSection) return; // Not on the menu page
+
+    var dailyMealGrid = document.getElementById('dailyMealGrid');
+
+    fetch(DAILY_MEAL_CSV_URL, { cache: 'no-store' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(function (csvText) {
+        // The sheet contains one featured meal ID per row.
+        var featuredIds = csvText
+          .split(/\r?\n/)
+          .map(function (line) { return line.replace(/"/g, '').trim(); })
+          .filter(function (line) { return line.length > 0; });
+
+        var allCards = dailyMealSection.querySelectorAll('.meal-card[data-daily-id]');
+        var anyFeatured = false;
+        allCards.forEach(function (card) {
+          var isFeatured = featuredIds.indexOf(card.getAttribute('data-daily-id')) !== -1;
+          card.classList.toggle('is-hidden', !isFeatured);
+          card.classList.toggle('is-todays-special', isFeatured);
+          if (isFeatured) anyFeatured = true;
+        });
+
+        if (!anyFeatured) {
+          var emptyMsg = document.createElement('p');
+          emptyMsg.className = 'daily-meal-empty';
+          emptyMsg.textContent = 'No daily meal is featured right now — check back soon!';
+          dailyMealGrid.insertAdjacentElement('afterend', emptyMsg);
+        }
+      })
+      .catch(function (err) {
+        console.warn('Daily Meal: could not load featured meal from sheet.', err);
+        // Fail open: if the sheet can't be reached, show all daily meals rather than none.
+        dailyMealSection.querySelectorAll('.meal-card[data-daily-id]').forEach(function (card) {
+          card.classList.remove('is-hidden');
+        });
+      })
+      .finally(function () {
+        if (dailyMealGrid) dailyMealGrid.classList.remove('is-loading');
+      });
+  })();
+
+  /* ---------- Home page: "Today's Special" badge list from Google Sheet CSV ---------- */
+  (function () {
+    var DAILY_MEAL_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrLVjEq8sNPChC5MA1z_p8qjthZs8Ruk7DF33g3EEOkQ1N3MzAZIl-7uEnHRcGwaEvpmVahUnsEClw/pub?output=csv';
+
+    // Keep this in sync with the data-daily-id values on menu.html
+    var DAILY_MEAL_NAMES = {
+      '1': "Bacha w 3asekro",
+      '2': "Chicken Alfredo",
+      '3': "Kousa w Warae 3arich",
+      '4': "Loubiye Bi Zeit",
+      '5': "Siyadiye"
+    };
+
+    var listEl = document.getElementById('todaysSpecialList');
+    if (!listEl) return; // Not on the home page
+
+    fetch(DAILY_MEAL_CSV_URL, { cache: 'no-store' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(function (csvText) {
+        var featuredIds = csvText
+          .split(/\r?\n/)
+          .map(function (line) { return line.replace(/"/g, '').trim(); })
+          .filter(function (line) { return line.length > 0; });
+
+        var names = featuredIds
+          .map(function (id) { return DAILY_MEAL_NAMES[id]; })
+          .filter(Boolean);
+
+        listEl.innerHTML = '';
+        if (!names.length) {
+          var emptyLi = document.createElement('li');
+          emptyLi.textContent = 'Check back soon!';
+          listEl.appendChild(emptyLi);
+          return;
+        }
+
+        names.forEach(function (name) {
+          var li = document.createElement('li');
+          li.textContent = name;
+          listEl.appendChild(li);
+        });
+      })
+      .catch(function (err) {
+        console.warn("Today's Special: could not load featured meals.", err);
+      });
+  })();
+
   /* ---------- Contact form: placeholder submit behavior ---------- */
   var contactForm = document.getElementById('contactForm');
   var formSuccess = document.getElementById('formSuccess');

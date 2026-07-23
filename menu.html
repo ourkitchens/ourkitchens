@@ -55,14 +55,41 @@
 <section class="section">
   <div class="container">
     <div class="menu-tabs" id="menuTabs">
-      <button class="menu-tab is-active" data-target="daily">Diet Platters</button>
+      <button class="menu-tab is-active" data-target="daily-meal">Daily Meal</button>
+      <button class="menu-tab" data-target="daily">Diet Platters</button>
       <button class="menu-tab" data-target="sandwiches">Sandwiches</button>
       <button class="menu-tab" data-target="salads">Salads</button>
       <button class="menu-tab" data-target="drinks">Drinks</button>
     </div>
 
-    <!-- Daily Meals / Diet Platters -->
-    <div class="menu-category is-active" id="daily">
+    <!-- Daily Meal (featured meal highlighted via published Google Sheet CSV) -->
+    <div class="menu-category is-active" id="daily-meal">
+      <div class="menu-grid is-loading" id="dailyMealGrid">
+        <div class="meal-card is-orderable" data-id="kousa-warak-arich" data-daily-id="3" data-price="540000">
+          <div class="thumb"><img src="assets/menu/kousawaraeaarish.png" alt="Kousa w Warae 3arich"></div>
+          <div class="meal-body"><div class="row"><h3>Kousa w Warae 3arich</h3><span class="meal-price">540,000 L.L.</span></div><p>Zucchini filled with rice and meat, rice and meat wrapped with grape leaves.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="bacha-3asakir" data-daily-id="1" data-price="540000">
+          <div class="thumb"><img src="assets/menu/bachaw3asekro.png" alt="Bacha w 3asekro"></div>
+          <div class="meal-body"><div class="row"><h3>Bacha w 3asekro</h3><span class="meal-price">540,000 L.L.</span></div><p>Rice with yogurt with kebbe balls and chich barak small wraps.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="loubiye-bi-zeit" data-daily-id="4" data-price="450000">
+          <div class="thumb"><img src="assets/menu/loubyebzet.png" alt="Loubiye Bi Zeit"></div>
+          <div class="meal-body"><div class="row"><h3>Loubiye Bi Zeit</h3><span class="meal-price">450,000 L.L.</span></div><p>Green beans with potatoes, onions and rice.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="chicken-alfredo" data-daily-id="2" data-price="540000">
+          <div class="thumb"><img src="assets/menu/chickenalfredo.png" alt="Chicken Alfredo"></div>
+          <div class="meal-body"><div class="row"><h3>Chicken Alfredo</h3><span class="meal-price">540,000 L.L.</span></div><p>Pasta with sauce blanche, creme fresh, chicken breast and parmesan.</p></div>
+        </div>
+        <div class="meal-card is-orderable" data-id="siyadiye" data-daily-id="5" data-price="540000">
+          <div class="thumb"><img src="assets/menu/siyadiye.png" alt="Siyadiye"></div>
+          <div class="meal-body"><div class="row"><h3>Siyadiye</h3><span class="meal-price">540,000 L.L.</span></div><p>Fresh fish with rice and enough spices to tease your tongue.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diet Platters -->
+    <div class="menu-category" id="daily">
       <div class="menu-category-head"><h2>Diet Platters</h2><div class="rule"></div></div>
       <div class="menu-grid">
         <div class="meal-card is-orderable" data-id="chicken-breast" data-price="600000" data-addons='[{"name":"Fruit","price":50000},{"name":"Soft Drink","price":100000}]'>
