@@ -1576,3 +1576,97 @@ input, textarea, select {
   .cta-form-grid { grid-template-columns: 1fr; }
   .catering-cta-inner p { margin-bottom: 28px; }
 }
+
+/* Container Centering (if not already applied) */
+#how-it-works .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Steps Grid Centering & Equal Spacing */
+.steps-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centers the cards in the row */
+  align-items: stretch;     /* Gives equal height to all cards */
+  gap: 2rem;               /* Equal spacing between cards */
+  max-width: 1100px;       /* Keeps grid neatly contained */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Step Card Styling */
+.step-card {
+  flex: 1 1 280px;         /* Allows cards to grow/shrink equally */
+  max-width: 340px;        /* Consistent max-width for balance */
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* Centers badges and text horizontally */
+  text-align: center;      /* Centers internal text */
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Number Badge */
+.step-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background-color: #f6e8c3; /* Light gold background */
+  color: #b8860b;            /* Gold accent color */
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Card Headings & Paragraphs */
+.step-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #1a1a1a;
+}
+
+.step-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555555;
+  margin: 0;
+}
+
+
+/* =========================================================
+   CATERING PAGE STYLES
+   ========================================================= */
+.required-asterisk {
+  color: #e74c3c;
+  font-weight: bold;
+  margin-left: 2px;
+}
+.cta-form-error {
+  display: none;
+  background-color: #fdf2f2;
+  border: 1px solid #f8b4b4;
+  color: #981b1b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.cta-field input.input-error,
+.cta-field select.input-error {
+  border-color: #e74c3c !important;
+  background-color: #fff8f8;
+}
+
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s var(--ease), transform .65s var(--ease); }
+.reveal.in-view { opacity: 1; transform: none; }
+

@@ -1,7 +1,7 @@
 /* ==========================================================================
    OUR KITCHEN — script.js
    Handles: sticky header shadow, mobile nav toggle, scroll reveal,
-            menu category tabs, contact form placeholder submission.
+            menu category tabs, contact form submission with WhatsApp.
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -193,23 +193,88 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   })();
 
-  /* ---------- Contact form: placeholder submit behavior ---------- */
+  /* ---------- Contact form: Dynamic Validation & WhatsApp Submission ---------- */
   var contactForm = document.getElementById('contactForm');
   var formSuccess = document.getElementById('formSuccess');
+
   if (contactForm) {
+    var emailInput = document.getElementById('email');
+    var phoneInput = document.getElementById('phone');
+
+    // Toggle required status between email and phone
+    function toggleContactRequired() {
+      if (!emailInput || !phoneInput) return;
+      var hasEmail = emailInput.value.trim() !== '';
+      var hasPhone = phoneInput.value.trim() !== '';
+
+      if (hasEmail) {
+        phoneInput.removeAttribute('required');
+        emailInput.setAttribute('required', '');
+      } else if (hasPhone) {
+        emailInput.removeAttribute('required', '');
+        phoneInput.setAttribute('required', '');
+      } else {
+        emailInput.setAttribute('required', '');
+        phoneInput.setAttribute('required', '');
+      }
+    }
+
+    if (emailInput && phoneInput) {
+      emailInput.addEventListener('input', toggleContactRequired);
+      phoneInput.addEventListener('input', toggleContactRequired);
+    }
+
+    // Form Submission to WhatsApp
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      // Find the name field explicitly inside contactForm by name attribute or ID
+      var nameEl = contactForm.querySelector('[name="name"]') || contactForm.querySelector('#name') || document.getElementById('name');
+      var nameVal = nameEl ? nameEl.value.trim() : '';
+
+      // Hard check for required name
+      if (!nameVal) {
+        alert('Please enter your name.');
+        if (nameEl) nameEl.focus();
+        return;
+      }
+
+      var targetPhoneNumber = '96181275199'; 
+
+      // Read values directly from form fields at the moment of submit
+      var eventTypeEl = contactForm.querySelector('[name="eventType"]') || document.getElementById('eventType');
+      var eventDateEl = contactForm.querySelector('[name="eventDate"]') || document.getElementById('eventDate');
+      var guestsEl = contactForm.querySelector('[name="guests"]') || document.getElementById('guests');
+
+      var eventType = eventTypeEl ? eventTypeEl.value : '';
+      var eventDate = eventDateEl ? eventDateEl.value : '';
+      var guests = guestsEl ? guestsEl.value : '';
+      var email = (emailInput && emailInput.value.trim()) ? emailInput.value.trim() : 'Not provided';
+      var phone = (phoneInput && phoneInput.value.trim()) ? phoneInput.value.trim() : 'Not provided';
+
+      // Format WhatsApp message
+      var message = `Hello! I would like to book/inquire about an event.\n\n` +
+                    `*Name:* ${nameVal}\n` +
+                    `*Event Type:* ${eventType}\n` +
+                    `*Event Date:* ${eventDate}\n` +
+                    `*Number of Guests:* ${guests}\n` +
+                    `*Email:* ${email}\n` +
+                    `*Phone:* ${phone}`;
+
+      var encodedMessage = encodeURIComponent(message);
+      var whatsappUrl = `https://wa.me/${targetPhoneNumber}?text=${encodedMessage}`;
+
+      // Open WhatsApp link
+      window.open(whatsappUrl, '_blank');
 
       if (formSuccess) {
         formSuccess.classList.add('is-visible');
         formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
+      // Reset form ONLY AFTER message string has been created
       contactForm.reset();
-
-      // NOTE: This is a frontend-only placeholder.
-      // Connect this to an email service, form backend, or booking API
-      // to actually receive submissions.
+      toggleContactRequired();
     });
   }
 
@@ -691,10 +756,24 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /* =========================================================
-   CATERING PAGE — WhatsApp CTA logic
+   CATERING PAGE — WhatsApp Form Logic with Inline Validation
    ========================================================= */
-(function () {
-  var WHATSAPP_NUMBER = '96181275199';
+document.addEventListener('DOMContentLoaded', function () {
+  var ctaForm = document.getElementById('ctaForm');
+  var genericBtn = document.getElementById('cateringWhatsappBtn');
+  
+  // Only run if catering elements exist on the current page
+  if (!ctaForm && !genericBtn) return;
+
+  var WHATSAPP_NUMBER = '96103445329'; 
+
+  var REQUIRED_FIELDS = [
+    { id: 'ctaName',     label: 'Your Name' },
+    { id: 'ctaGuests',   label: 'Number of Guests' },
+    { id: 'ctaEvent',    label: 'Event Type' },
+    { id: 'ctaDate',     label: 'Event Date' },
+    { id: 'ctaLocation', label: 'Event Location / Area' }
+  ];
 
   function buildCateringMessage() {
     var name     = (document.getElementById('ctaName')     || {}).value || '';
@@ -710,7 +789,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     var lines = [];
-    lines.push('\u{1F44B} Hello! I\'d like to inquire about catering services from Our Kitchen by Chef Sleiman.');
+    lines.push('Hello! I\'d like to inquire about catering services from Our Kitchen by Chef Sleiman.');
     lines.push('');
     if (name)     lines.push('*Name:* ' + name.trim());
     if (event)    lines.push('*Event Type:* ' + event);
@@ -724,7 +803,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (addons.length) lines.push('*Add-ons Requested:* ' + addons.join(', '));
     if (note)     lines.push('*Additional Notes:* ' + note.trim());
     lines.push('');
-    lines.push('Could you please provide more details and a custom quote? Thank you! \u{1F64F}');
+    lines.push('Could you please provide more details and a custom quote? Thank you!');
 
     return lines.join('\n');
   }
@@ -733,35 +812,16 @@ document.addEventListener('DOMContentLoaded', function () {
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
   }
 
-  // Generic "Chat with Us" button — sends a simple inquiry
-  var genericBtn = document.getElementById('cateringWhatsappBtn');
-  if (genericBtn) {
-    genericBtn.addEventListener('click', function () {
-      openWhatsApp('\u{1F44B} Hello! I\'d like to inquire about your catering services. Could you share more details about availability, menus, and pricing? Thank you!');
-    });
-  }
-
-  // Required fields (everything except add-ons and cuisine preferences/notes)
-  var REQUIRED_FIELDS = [
-    { id: 'ctaName',     label: 'Your Name' },
-    { id: 'ctaGuests',   label: 'Number of Guests' },
-    { id: 'ctaEvent',    label: 'Event Type' },
-    { id: 'ctaDate',     label: 'Event Date' },
-    { id: 'ctaLocation', label: 'Event Location / Area' }
-  ];
-
   function clearFieldError(field) {
-    field.style.borderColor = '';
+    field.classList.remove('input-error');
   }
 
-  function showFormError() {
-    var errorEl = document.getElementById('ctaFormError');
-    if (errorEl) errorEl.classList.add('is-visible');
-  }
-
-  function hideFormError() {
-    var errorEl = document.getElementById('ctaFormError');
-    if (errorEl) errorEl.classList.remove('is-visible');
+  function hideErrorBox() {
+    var errorBox = document.getElementById('ctaFormError');
+    if (errorBox) {
+      errorBox.style.display = 'none';
+      errorBox.innerHTML = '';
+    }
   }
 
   function validateCateringForm() {
@@ -774,17 +834,28 @@ document.addEventListener('DOMContentLoaded', function () {
       clearFieldError(field);
       if (!field.value || !field.value.trim()) {
         missing.push(f.label);
-        field.style.borderColor = '#c0392b';
+        field.classList.add('input-error');
         if (!firstInvalid) firstInvalid = field;
       }
     });
 
     if (missing.length) {
-      if (firstInvalid) firstInvalid.focus();
-      showFormError();
+      var errorBox = document.getElementById('ctaFormError');
+      if (errorBox) {
+        errorBox.innerHTML = '<strong>Please complete the required fields!</strong>';
+        errorBox.style.display = 'block';
+      }
+
+      if (ctaForm) {
+        ctaForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      if (firstInvalid) {
+        setTimeout(function() { firstInvalid.focus(); }, 400);
+      }
       return false;
     }
-    hideFormError();
+
+    hideErrorBox();
     return true;
   }
 
@@ -796,31 +867,40 @@ document.addEventListener('DOMContentLoaded', function () {
         clearFieldError(field);
       }
     });
+
     var note = document.getElementById('ctaNote');
     if (note) note.value = '';
+
     document.querySelectorAll('.cta-addon-check input:checked').forEach(function (cb) {
       cb.checked = false;
     });
-    hideFormError();
+
+    hideErrorBox();
   }
 
-  // Clear the red error outline (and hide the banner once all fields are valid)
+  // Clear visual errors inline as the user types/selects
   REQUIRED_FIELDS.forEach(function (f) {
     var field = document.getElementById(f.id);
     if (field) {
-      field.addEventListener('input', function () {
+      field.addEventListener('input', function () { 
         clearFieldError(field);
-        var stillMissing = REQUIRED_FIELDS.some(function (rf) {
-          var el = document.getElementById(rf.id);
-          return el && (!el.value || !el.value.trim());
-        });
-        if (!stillMissing) hideFormError();
+        hideErrorBox();
       });
-      field.addEventListener('change', function () { clearFieldError(field); });
+      field.addEventListener('change', function () { 
+        clearFieldError(field);
+        hideErrorBox();
+      });
     }
   });
 
-  // Form "Send My Details" button — sends the rich auto-generated message
+  // Generic button
+  if (genericBtn) {
+    genericBtn.addEventListener('click', function () {
+      openWhatsApp('Hello! I\'d like to inquire about your catering services. Could you share more details about availability, menus, and pricing? Thank you!');
+    });
+  }
+
+  // Form submit button
   var formBtn = document.getElementById('ctaFormWhatsappBtn');
   if (formBtn) {
     formBtn.addEventListener('click', function () {
@@ -829,4 +909,4 @@ document.addEventListener('DOMContentLoaded', function () {
       resetCateringForm();
     });
   }
-})();
+});
