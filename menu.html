@@ -55,7 +55,7 @@
 <section class="section">
   <div class="container">
     <div class="menu-tabs" id="menuTabs">
-      <button class="menu-tab is-active" data-target="daily-meal">Daily Meal</button>
+      <button class="menu-tab" data-target="daily-meal">Daily Meal</button>
       <button class="menu-tab" data-target="daily">Diet Platters</button>
       <button class="menu-tab" data-target="sandwiches">Sandwiches</button>
       <button class="menu-tab" data-target="salads">Salads</button>
@@ -64,6 +64,7 @@
 
     <!-- Daily Meal (featured meal highlighted via published Google Sheet CSV) -->
     <div class="menu-category is-active" id="daily-meal">
+      <div class="menu-category-head"><h2>Daily Meal</h2><div class="rule"></div></div>
       <div class="menu-grid is-loading" id="dailyMealGrid">
         <div class="meal-card is-orderable" data-id="kousa-warak-arich" data-daily-id="3" data-price="540000">
           <div class="thumb"><img src="assets/menu/kousawarae.jpg" alt="Kousa w Warae 3arich"></div>

@@ -468,7 +468,7 @@ input, textarea, select {
 .menu-grid.is-loading .meal-card { display: none; }
 .card-grid.is-loading .meal-card { display: none; }
 .daily-meal-loading,
-.daily-meal-empty { color: var(--charcoal-soft); font-size: 0.95rem; padding: 10px 4px 0; }
+.daily-meal-empty { color: var(--charcoal-soft); font-size: 0.95rem; padding: 48px 4px; text-align: center; }
 .meal-body { padding: 22px 24px 26px; }
 .meal-body .row {
   display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
