@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
 
       // Find the name field explicitly inside contactForm by name attribute or ID
-      var nameEl = contactForm.querySelector('[name="name"]') || contactForm.querySelector('#name') || document.getElementById('name');
+      var nameEl = contactForm.querySelector('[name="fullName"]') || contactForm.querySelector('#name') || document.getElementById('name');
       var nameVal = nameEl ? nameEl.value.trim() : '';
 
       // Hard check for required name
@@ -274,11 +274,19 @@ document.addEventListener('DOMContentLoaded', function () {
       // Read values directly from form fields at the moment of submit
       var eventTypeEl = contactForm.querySelector('[name="eventType"]') || document.getElementById('eventType');
       var eventDateEl = contactForm.querySelector('[name="eventDate"]') || document.getElementById('eventDate');
-      var guestsEl = contactForm.querySelector('[name="guests"]') || document.getElementById('guests');
+      var guestsEl = contactForm.querySelector('[name="guestCount"]') || document.getElementById('guests');
+      var messageEl = contactForm.querySelector('[name="message"]') || document.getElementById('message');
 
-      var eventType = eventTypeEl ? eventTypeEl.value : '';
-      var eventDate = eventDateEl ? eventDateEl.value : '';
-      var guests = guestsEl ? guestsEl.value : '';
+      function getFieldValue(el) {
+        if (!el) return 'Not provided';
+        var val = el.value.trim();
+        return val !== '' ? val : 'Not provided';
+      }
+
+      var eventType = getFieldValue(eventTypeEl);
+      var eventDate = getFieldValue(eventDateEl);
+      var guests = getFieldValue(guestsEl);
+      var extraMessage = getFieldValue(messageEl);
       var email = (emailInput && emailInput.value.trim()) ? emailInput.value.trim() : 'Not provided';
       var phone = (phoneInput && phoneInput.value.trim()) ? phoneInput.value.trim() : 'Not provided';
 
@@ -289,7 +297,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     `*Event Date:* ${eventDate}\n` +
                     `*Number of Guests:* ${guests}\n` +
                     `*Email:* ${email}\n` +
-                    `*Phone:* ${phone}`;
+                    `*Phone:* ${phone}\n` +
+                    `*Details:* ${extraMessage}`;
 
       var encodedMessage = encodeURIComponent(message);
       var whatsappUrl = `https://wa.me/${targetPhoneNumber}?text=${encodedMessage}`;
